@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.garretwilson.awt;
+package com.globalmentor.awt;
 
 import java.awt.*;
 import java.util.*;
 
 import javax.swing.Box;
 
-import static com.garretwilson.awt.Containers.*;
+import static com.globalmentor.awt.Containers.*;
 
 /**Grid bag layout class that has additional convenience functionality,
 	including box layout and border layout functionality.

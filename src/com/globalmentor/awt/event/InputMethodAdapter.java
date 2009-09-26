@@ -14,17 +14,27 @@
  * limitations under the License.
  */
 
-package com.garretwilson.awt;
+package com.globalmentor.awt.event;
 
-import java.awt.Insets;
+import java.awt.event.InputMethodEvent;
+import java.awt.event.InputMethodListener;
 
-/**A class that keeps track of insets.
+/**An object that implements the {@link InputMethodListener} interface
+	with no functionality.
 @author Garret Wilson
+@see InputMethodListener
 */
-public interface Inset
+public class InputMethodAdapter implements InputMethodListener
 {
 
-	/**@return The insets of the object.*/
-	public Insets getInsets();
+	/**Invoked when the text entered through an input method has changed.
+	@param event The input method event.
+	*/
+	public void inputMethodTextChanged(final InputMethodEvent event) {}
+
+	/**Invoked when the caret within composed text has changed.
+	@param event The input method event.
+	*/
+	public void caretPositionChanged(final InputMethodEvent event) {}
 
 }

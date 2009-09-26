@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.garretwilson.awt;
+package com.globalmentor.awt;
 
 import java.awt.*;
 import javax.swing.*;

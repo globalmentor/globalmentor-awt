@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.garretwilson.awt.event;
+package com.globalmentor.awt.event;
 
 import java.awt.*;
 import java.awt.event.*;

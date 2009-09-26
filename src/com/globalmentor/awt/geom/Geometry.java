@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.garretwilson.awt.geom;
+package com.globalmentor.awt.geom;
 
 import java.awt.*;
 
