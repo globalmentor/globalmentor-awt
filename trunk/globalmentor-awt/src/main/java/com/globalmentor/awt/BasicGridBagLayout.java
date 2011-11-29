@@ -19,8 +19,6 @@ package com.globalmentor.awt;
 import java.awt.*;
 import java.util.*;
 
-import javax.swing.Box;
-
 import static com.globalmentor.awt.Containers.*;
 
 /**Grid bag layout class that has additional convenience functionality,
@@ -32,13 +30,12 @@ import static com.globalmentor.awt.Containers.*;
 	the total number in both directions together limited by
 	{@link GridBagLayout#MAXGRIDSIZE}.</p>
 <p>A component with a basic grid bag layout can be used in place of a horizontal
-	or vertical {@link Box}, with the added benefit that weights
+	or vertical {@link javax.swing.Box}, with the added benefit that weights
 	can be assigned to each component, using <code>createNextBoxConstraints()</code>
 	for layout constraints when adding components. For example, a vertical layout
-	might add a {@link Box#createGlue()} at the end using constraints of
+	might add a {@link javax.swing.Box#createGlue()} at the end using constraints of
 	<code>createNextBoxConstraints(BasicGridBagLayout.X_AXIS, 1.0)</code>.</p>  
 @author Garret Wilson
-@see Box
 */
 public class BasicGridBagLayout extends GridBagLayout
 {

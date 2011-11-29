@@ -17,7 +17,6 @@
 package com.globalmentor.awt;
 
 import java.awt.*;
-import javax.swing.*;
 
 /**Various utility methods for manipulating windows.
 @author Garret Wilson
@@ -64,7 +63,7 @@ public class Windows
 	<p>This is useful for packing windows containing text components, which
 		report a very large preferred width and a very small preferred height.</p>
 	@param window The window to resize if needed.
-	@see JScrollPane
+	@see javax.swing.JScrollPane
 	*/ 
 	public static void constrainSize(final Window window)
 	{
