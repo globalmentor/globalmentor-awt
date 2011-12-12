@@ -101,7 +101,7 @@ public final class ImmutableDimension2D extends Dimension2D
 	@Override
 	public int hashCode()
 	{
-		return Objects.hashCode(width, height);
+		return Objects.getDoubleHashCode(width, height);
 	}
 
 	/**
