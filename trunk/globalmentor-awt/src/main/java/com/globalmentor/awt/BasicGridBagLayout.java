@@ -67,7 +67,7 @@ public class BasicGridBagLayout extends GridBagLayout
 		<code>X_AXIS</code> or <code>Y_AXIS</code>
 	@return The largest coordinate on the given axis, or <code>-1</code> if
 		no components were added using a <code>GridBagConstraint</code>.
-	@exception IllegalArgumentException Thrown if the axis value is unrecognized
+	@throws IllegalArgumentException Thrown if the axis value is unrecognized
 	@see #X_AXIS
 	@see #Y_AXIS
 	*/
@@ -119,7 +119,7 @@ public class BasicGridBagLayout extends GridBagLayout
 		<code>X_AXIS</code> or <code>Y_AXIS</code>
 	@return A grid bag constraint object for adding a new component in single
 		file along the horizontal or vertical axis.
-	@exception IllegalArgumentException Thrown if the axis value is unrecognized
+	@throws IllegalArgumentException Thrown if the axis value is unrecognized
 	@see #X_AXIS
 	@see #Y_AXIS
 	*/
@@ -139,7 +139,7 @@ public class BasicGridBagLayout extends GridBagLayout
 		axis.
 	@return A grid bag constraint object for adding a new component in single
 		file along the horizontal or vertical axis.
-	@exception IllegalArgumentException Thrown if the axis value is unrecognized
+	@throws IllegalArgumentException Thrown if the axis value is unrecognized
 	@see #X_AXIS
 	@see #Y_AXIS
 	*/
@@ -159,7 +159,7 @@ public class BasicGridBagLayout extends GridBagLayout
 		file along the horizontal or vertical axis.
 	@see #X_AXIS
 	@see #Y_AXIS
-	@exception IllegalArgumentException Thrown if the axis value is unrecognized
+	@throws IllegalArgumentException Thrown if the axis value is unrecognized
 	*/
 	public GridBagConstraints createNextBoxConstraints(final int axis, final int anchor, final int fill) throws IllegalArgumentException 
 	{
@@ -176,7 +176,7 @@ public class BasicGridBagLayout extends GridBagLayout
 	@param fill	How the component should fill the grid cell.
 	@return A grid bag constraint object for adding a new component in single
 		file along the horizontal or vertical axis.
-	@exception IllegalArgumentException Thrown if the axis value is unrecognized
+	@throws IllegalArgumentException Thrown if the axis value is unrecognized
 	@see #X_AXIS
 	@see #Y_AXIS
 	*/
@@ -241,7 +241,7 @@ public class BasicGridBagLayout extends GridBagLayout
 		<code>BorderLayout</code> constants such as <code>Border.NORTH</code>.
 	@return The next available zero-based index suitable for placing a component
 		in the given border, or -1 if no next index is available.
-	@exception IllegalArgumentException Thrown if constraints is not a
+	@throws IllegalArgumentException Thrown if constraints is not a
 		valid <code>BorderLayout</code> constraint.
 	*/
 	protected int getNextBorderIndex(String border) throws IllegalArgumentException 
@@ -318,7 +318,7 @@ public class BasicGridBagLayout extends GridBagLayout
 		<code>BorderLayout</code> constants such as <code>Border.NORTH</code>.
 	@return A grid bag constraint object for adding a new component in one of
 		the borders.
-	@exception IllegalArgumentException Thrown if constraints is not a
+	@throws IllegalArgumentException Thrown if constraints is not a
 		valid <code>BorderLayout</code> constraint.
 	@see #getNextBorderIndex(String)
 	*/
@@ -344,7 +344,7 @@ public class BasicGridBagLayout extends GridBagLayout
 		a border of <code>BorderLayout.CENTER</code>. 
 	@return A grid bag constraint object for adding a new component in one of
 		the borders.
-	@exception IllegalArgumentException Thrown if constraints is not a
+	@throws IllegalArgumentException Thrown if constraints is not a
 		valid <code>BorderLayout</code> constraint or the given index is negative.
 	*/
 	public GridBagConstraints createBorderConstraints(String border, final int index) throws IllegalArgumentException 
@@ -395,7 +395,7 @@ public class BasicGridBagLayout extends GridBagLayout
 		<code>Border.CENTER</code>, <code>Border.NORTH</code>,
 		<code>Border.EAST</code>, <code>Border.SOUTH</code>, and
 		<code>Border.WEST</code>.
-	@exception IllegalArgumentException Thrown if constraints is not a
+	@throws IllegalArgumentException Thrown if constraints is not a
 		valid <code>BorderLayout</code> constraint.
 	*/
 	public static String getCanonicalBorderConstraint(final String border) throws IllegalArgumentException
@@ -427,7 +427,7 @@ public class BasicGridBagLayout extends GridBagLayout
 	@param component The component to be added.
 	@param constraints An object that determines how the component is added to
 		the layout.
-	@exception IllegalArgumentException Thrown if constraints is not a
+	@throws IllegalArgumentException Thrown if constraints is not a
 		<code>GridBagConstraint</code> or a valid <code>BorderLayout</code>.
 	@see #createBorderConstraints(String)
 	*/
