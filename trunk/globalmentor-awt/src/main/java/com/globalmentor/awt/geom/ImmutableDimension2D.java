@@ -26,8 +26,7 @@ import com.globalmentor.java.Objects;
  * @author Garret Wilson
  * 
  */
-public final class ImmutableDimension2D extends Dimension2D
-{
+public final class ImmutableDimension2D extends Dimension2D {
 
 	private static final long serialVersionUID = 1L;
 
@@ -38,22 +37,19 @@ public final class ImmutableDimension2D extends Dimension2D
 	private final double height;
 
 	/** {@inheritDoc} */
-	public double getWidth()
-	{
+	public double getWidth() {
 		return width;
 	}
 
 	/** {@inheritDoc} */
-	public double getHeight()
-	{
+	public double getHeight() {
 		return height;
 	}
 
 	/**
 	 * Creates a dimension with a with of zero and a height of zero.
 	 */
-	public ImmutableDimension2D()
-	{
+	public ImmutableDimension2D() {
 		this(0, 0);
 	}
 
@@ -61,8 +57,7 @@ public final class ImmutableDimension2D extends Dimension2D
 	 * Creates a dimension with the same width and height as the given dimension.
 	 * @param dimension The dimension the values of which will be copied.
 	 */
-	public ImmutableDimension2D(final Dimension2D dimension)
-	{
+	public ImmutableDimension2D(final Dimension2D dimension) {
 		this(dimension.getWidth(), dimension.getHeight());
 	}
 
@@ -71,8 +66,7 @@ public final class ImmutableDimension2D extends Dimension2D
 	 * @param width The specified width.
 	 * @param height The specified height.
 	 */
-	public ImmutableDimension2D(final double width, final double height)
-	{
+	public ImmutableDimension2D(final double width, final double height) {
 		this.width = width;
 		this.height = height;
 	}
@@ -82,8 +76,7 @@ public final class ImmutableDimension2D extends Dimension2D
 	 * @throws UnsupportedOperationException to indicate that this value class is immutable.
 	 */
 	@Override
-	public void setSize(double width, double height)
-	{
+	public void setSize(double width, double height) {
 		throw new UnsupportedOperationException("Class " + getClass() + " is immutable.");
 	}
 
@@ -92,29 +85,25 @@ public final class ImmutableDimension2D extends Dimension2D
 	 * @throws UnsupportedOperationException to indicate that this value class is immutable.
 	 */
 	@Override
-	public void setSize(Dimension2D d)
-	{
+	public void setSize(Dimension2D d) {
 		throw new UnsupportedOperationException("Class " + getClass() + " is immutable.");
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public int hashCode()
-	{
+	public int hashCode() {
 		return Objects.getDoubleHashCode(width, height);
 	}
 
 	/**
-	 * Determines if this object is equal to another object. The two objects are considered equal if they are both
-	 * instances of {@link Dimension2D} with the same width and height.
+	 * Determines if this object is equal to another object. The two objects are considered equal if they are both instances of {@link Dimension2D} with the same
+	 * width and height.
 	 */
-	public boolean equals(final Object object)
-	{
-		if (!(object instanceof Dimension2D))
-		{
+	public boolean equals(final Object object) {
+		if(!(object instanceof Dimension2D)) {
 			return false;
 		}
-		final Dimension2D dimension2D = (Dimension2D) object;
+		final Dimension2D dimension2D = (Dimension2D)object;
 		return getWidth() == dimension2D.getWidth() && getHeight() == dimension2D.getHeight();
 	}
 }

@@ -18,39 +18,39 @@ package com.globalmentor.awt;
 
 import java.util.*;
 
-/**A timer task that ensures its activity runs in the AWT event queue.
-<p>Child classes should override {@link #runInEventQueue()}.</p>
-@author Garret Wilson
-@see Timer
-@see #runInEventQueue()
-*/
-public abstract class AbstractEventQueueTimerTask extends TimerTask
-{
+/**
+ * A timer task that ensures its activity runs in the AWT event queue.
+ * <p>
+ * Child classes should override {@link #runInEventQueue()}.
+ * </p>
+ * @author Garret Wilson
+ * @see Timer
+ * @see #runInEventQueue()
+ */
+public abstract class AbstractEventQueueTimerTask extends TimerTask {
 
-	/**The class that is executed in the AWT event queue.*/
+	/** The class that is executed in the AWT event queue. */
 	private final Runnable runnable;
 
-	/**Default constructor.*/
-	public AbstractEventQueueTimerTask()
-	{
-		runnable=new Runnable()	//create a new runnable class that will simply call runInEventQueue()
-				{
-					public void run()	//when this runnable is ran
-					{
-						runInEventQueue();	//run the code in runInEventQueue()
-					}
-				};
+	/** Default constructor. */
+	public AbstractEventQueueTimerTask() {
+		runnable = new Runnable() { //create a new runnable class that will simply call runInEventQueue()
+
+			public void run() { //when this runnable is ran
+				runInEventQueue(); //run the code in runInEventQueue()
+			}
+		};
 	}
 
-	/**Executes the task in the AWT event queue.
-	@see #runInEventQueue()
-	*/
-	public final void run()
-	{
-		EventQueues.invokeInEventQueue(runnable);	//invoke our code in the event queue
+	/**
+	 * Executes the task in the AWT event queue.
+	 * @see #runInEventQueue()
+	 */
+	public final void run() {
+		EventQueues.invokeInEventQueue(runnable); //invoke our code in the event queue
 	}
 
-	/**The action to be performed by this timer task in the AWT event queue.*/
+	/** The action to be performed by this timer task in the AWT event queue. */
 	protected abstract void runInEventQueue();
 
 }
