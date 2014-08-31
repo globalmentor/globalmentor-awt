@@ -33,7 +33,7 @@ public class Colors {
 	 *         with a <code>null</code> considered less than a non-<code>null</code> value.
 	 * @see Comparable#compareTo
 	 */
-	public final static int compareTo(final Color color1, final Color color2) {
+	public static final int compareTo(final Color color1, final Color color2) {
 		if(color1 != null && color2 != null) //if both colors are non-null
 			return color1.getRGB() - color2.getRGB(); //subtract and return their RGB values
 		else if(color1 == color2) //if both colors are null (we know at this point that one color is null, so if the color are equal then both are null)

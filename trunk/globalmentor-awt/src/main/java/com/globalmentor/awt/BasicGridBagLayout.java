@@ -40,10 +40,10 @@ public class BasicGridBagLayout extends GridBagLayout {
 	/**
 	 * The origin (i.e. the center cell position) both horizontally and vertically to use when impersonating a border layout.
 	 */
-	protected final static int ORIGIN = MAXGRIDSIZE / 2;
+	protected static final int ORIGIN = MAXGRIDSIZE / 2;
 
 	/** Specifies that components should be laid out left to right. */
-	public final static int X_AXIS = 0;
+	public static final int X_AXIS = 0;
 
 	/** Specifies that components should be laid out top to bottom. */
 	public static final int Y_AXIS = 1;

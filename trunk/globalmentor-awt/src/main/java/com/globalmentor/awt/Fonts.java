@@ -37,7 +37,7 @@ public class Fonts {
 	/**
 	 * Map of font family names, keyed to either a Unicode block or a <code>character</code>.
 	 */
-	protected final static Map characterFontFamilyNameMap = new HashMap();
+	protected static final Map characterFontFamilyNameMap = new HashMap();
 
 	/** The sorted list of available font family names. */
 	private static String[] sortedAvailableFontFamilyNameArray = null;

@@ -27,7 +27,7 @@ import com.globalmentor.model.*;
 public class Containers {
 
 	/** An object specifying no insets. */
-	public final static Insets NO_INSETS = new Insets(0, 0, 0, 0);
+	public static final Insets NO_INSETS = new Insets(0, 0, 0, 0);
 
 	/**
 	 * Sets the modified property of all components that are children of the given container and that implement <code>Modifiable</code>. Any children that do not
