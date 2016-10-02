@@ -71,7 +71,7 @@ public class Fonts {
 	 * created, or its memory has been reclaimed, a new font is created and a soft reference to the font is added to the cache. This method is not thread safe.
 	 * @param family The font family (such as "Monospaced").
 	 * @param style The style of the font (such as <code>Font.PLAIN</code>).
-	 * @param size The point size (>=1).
+	 * @param size The point size (&gt;=1).
 	 * @return A font with the given parameters, from the cache if possible.
 	 */
 	public static Font getFont(final String family, final int style, final int size) {
@@ -96,7 +96,7 @@ public class Fonts {
 	 * Gets a new font for the specified character by searching all available fonts if the character is not supported by the provided font. If no font supports
 	 * the character, the preferred font is returned.
 	 * @param c The character for which a font should be returned.
-	 * @param suggestedFont The preferred font.
+	 * @param preferredFont The preferred font.
 	 * @return The new font, or <code>null</code> if a font could not be found that matched this character.
 	 */
 	public static Font getFont(final char c, final Font preferredFont) {
@@ -126,8 +126,8 @@ public class Fonts {
 	 * represented in the map.
 	 * </p>
 	 * @param c The character for which a font should be returned.
-	 * @param style The style of the font (such as <code>Font.PLAIN</cod>).
-	 * @param size The point size (>=1).
+	 * @param style The style of the font (such as <code>Font.PLAIN</code>).
+	 * @param size The point size (&gt;=1).
 	 * @return The new font, or <code>null</code> if a font could not be found that matched this character.
 	 */
 	public static Font getFont(final char c, final int style, final int size) {

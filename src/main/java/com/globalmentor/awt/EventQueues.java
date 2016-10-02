@@ -28,6 +28,7 @@ public class EventQueues {
 	/**
 	 * Causes the object to have its {@link Runnable#run()} method called in the dispatch thread of the EventQueue. This will happen after all pending events are
 	 * processed. The call does not block and wait for the execution to occur.
+	 * @param runnable The {@link Runnable} to be run.
 	 * @see EventQueue#invokeLater(Runnable)
 	 */
 	public static void invokeInEventQueue(final Runnable runnable) {
@@ -46,6 +47,8 @@ public class EventQueues {
 	 * <code>EventQueue</code> version, which throws an error under this condition.
 	 * </p>
 	 * @see EventQueue#invokeAndWait(Runnable)
+	 * @throws InterruptedException TODO
+	 * @throws InvocationTargetException TODO
 	 */
 	public static void invokeInEventQueueAndWait(final Runnable runnable) throws InterruptedException, InvocationTargetException {
 		if(EventQueue.isDispatchThread()) { //if we're in the event dispatch thread already

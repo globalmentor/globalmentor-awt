@@ -38,7 +38,7 @@ public class Containers {
 	 * been modified does not mean that each of its children has had their content modified.
 	 * </p>
 	 * @param container The container the children of which to set the modified status.
-	 * @param newModified The new modification status.
+	 * @param modified The new modification status.
 	 * @see Modifiable#setModified(boolean)
 	 */
 	public static void setModifiableDescendants(final Container container, final boolean modified) {
