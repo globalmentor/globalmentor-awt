@@ -47,8 +47,8 @@ public class EventQueues {
 	 * <code>EventQueue</code> version, which throws an error under this condition.
 	 * </p>
 	 * @see EventQueue#invokeAndWait(Runnable)
-	 * @throws InterruptedException TODO
-	 * @throws InvocationTargetException TODO
+	 * @throws InterruptedException If the thread sleeping state is interrupted.
+	 * @throws InvocationTargetException If some error occurs on an invocation method or constructor.
 	 */
 	public static void invokeInEventQueueAndWait(final Runnable runnable) throws InterruptedException, InvocationTargetException {
 		if(EventQueue.isDispatchThread()) { //if we're in the event dispatch thread already
