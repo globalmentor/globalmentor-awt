@@ -344,7 +344,7 @@ public class BasicGridBagLayout extends GridBagLayout {
 	 * If a <code>String</code> is passed representing a valid <code>BorderLayout</code> constraint, that constraint is converted to the appropriate
 	 * <code>GridBagConstraint</code>.
 	 * </p>
-	 * @param component The component to be added.
+	 * @param comp The component to be added.
 	 * @param constraints An object that determines how the component is added to the layout.
 	 * @throws IllegalArgumentException Thrown if constraints is not a <code>GridBagConstraint</code> or a valid <code>BorderLayout</code>.
 	 * @see #createBorderConstraints(String)
