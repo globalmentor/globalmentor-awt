@@ -46,6 +46,7 @@ public class EventQueues {
 	 * If the calling thread is the event queue, the objects <code>run()</code> method will be called in the calling thread. Contrast this with the
 	 * <code>EventQueue</code> version, which throws an error under this condition.
 	 * </p>
+	 * @param runnable The {@link Runnable} to be run.
 	 * @see EventQueue#invokeAndWait(Runnable)
 	 * @throws InterruptedException If the thread sleeping state is interrupted.
 	 * @throws InvocationTargetException If some error occurs on an invocation method or constructor.

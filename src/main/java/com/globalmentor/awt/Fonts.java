@@ -20,8 +20,6 @@ import java.awt.*;
 import java.lang.ref.*;
 import java.util.*;
 
-import com.globalmentor.log.Log;
-
 /**
  * Various routines for working with fonts. This class also keeps several static maps of references to fonts for quick lookup that will be garbage-collected to
  * free memory if needed.
@@ -180,18 +178,18 @@ public class Fonts {
 		else if(unicodeBlock.equals(Character.UnicodeBlock.GENERAL_PUNCTUATION)) //if this is general punctuation
 			possibleFontFamilyNames = new String[] { "Berling Antiqua", "Lucida Sans Regular" }; //show which font family names we want to try TODO use a pre-created static version
 		else { //if we have no suggestions
-			Log.trace("Font cannot support character: " + Integer.toHexString(c) + ", but we have no suggestions");
+			//Log.trace("Font cannot support character: " + Integer.toHexString(c) + ", but we have no suggestions");
 
 			//TODO add lookup for "MS Hei" to the appropriate Unicode blocks, such as for 0x4F60
 			possibleFontFamilyNames = new String[] { "Lucida Sans Regular", "Code2000", "Batang", "MS Hei" }; //always try the installed font, along with Code2000 TODO use a pre-created static version TODO see which fonts Batang contains -- it has, for example, 0x5DE5, which Code2000 does not
 		}
 		//try the suggested fonts based upon the Unicode block TODO we might want to make sure each font is available on the system, first
 		if(possibleFontFamilyNames != null) { //if know of several font family names to try
-			Log.trace("Font cannot support character: " + Integer.toHexString(c) + "; trying possible fonts");
+			//Log.trace("Font cannot support character: " + Integer.toHexString(c) + "; trying possible fonts");
 			for(int i = 0; i < possibleFontFamilyNames.length; ++i) { //look at each font family name
 				final Font possibleFont = new Font(possibleFontFamilyNames[i], style, size); //create a font with the possible name, but don't get it using getFont() because we're not sure we want to add it to our cache
 				if(possibleFont.canDisplay(c)) { //if the font can display the character
-					Log.trace("Character " + Integer.toHexString(c) + " used suggested font: " + possibleFont);
+					//Log.trace("Character " + Integer.toHexString(c) + " used suggested font: " + possibleFont);
 					chosenFont = getFont(possibleFontFamilyNames[i], style, size); //choose a font after getting it with getFont(), which will add it to our cache for next time
 					//TODO del				  chosenFont=possibleFont;  //show that we've chosen a font
 					break; //stop searching
@@ -205,10 +203,10 @@ public class Fonts {
 			final String[] availableFontFamilyNames = getAvailableFontFamilyNames(); //get the available font family names
 			for(int i = 0; i < availableFontFamilyNames.length; ++i) { //look at each available font
 				final Font availableFont = new Font(availableFontFamilyNames[i], style, size); //create a the available font, but don't get it using getFont() because we're not sure we want to add it to our cache
-				Log.trace("trying font: ", availableFont); //TODO del
+				//Log.trace("trying font: ", availableFont); //TODO del
 				//TODO del				final Font availableFont=getFont(availableFontFamilyNames[i], style, size); //create the available font
 				if(availableFont.canDisplay(c)) { //if the font can display the character
-					Log.trace("Character " + Integer.toHexString(c) + " not found; had to search available fonts, found: " + availableFont);
+					//Log.trace("Character " + Integer.toHexString(c) + " not found; had to search available fonts, found: " + availableFont);
 					chosenFont = getFont(availableFontFamilyNames[i], style, size); //choose a font after getting it with getFont(), which will add it to our cache for next time
 					//TODO del				  chosenFont=availableFont;  //show that we've chosen a font
 					break; //stop searching
@@ -222,7 +220,7 @@ public class Fonts {
 			//TODO del Log.trace("Stored object: "+characterFontFamilyNameMap.get(character)); //TODO del; testing
 			//TODO del Log.trace("Stored object from new character: "+characterFontFamilyNameMap.get(new Character(character.charValue())));
 			characterFontFamilyNameMap.put(unicodeBlock, chosenFont.getFamily()); //store the name in the map keyed to the Unicode block
-			Log.trace("Finally chose font: ", chosenFont); //TODO del
+			//Log.trace("Finally chose font: ", chosenFont); //TODO del
 			return chosenFont; //return the font we chose
 		} else { //if we could not find a font for the character
 			characterFontFamilyNameMap.put(character, null); //remind ourselves next time that we've tried all fonts and couldn't find any to work with this character
