@@ -26,9 +26,12 @@ import java.awt.*;
 public class Images {
 
 	/** The component used by the media tracker for loading an image. */
-	protected static final Component mediaTrackerComponent = new Component() {};
+	protected static final Component MEDIA_TRACKER_COMPONENT = new Component() {
+		private static final long serialVersionUID = 1L;
+	};
+
 	/** The media tracker used to load images. */
-	protected static final MediaTracker mediaTracker = new MediaTracker(mediaTrackerComponent);
+	protected static final MediaTracker mediaTracker = new MediaTracker(MEDIA_TRACKER_COMPONENT);
 
 	/** This class cannot be publicly instantiated. */
 	private Images() {

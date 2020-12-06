@@ -28,8 +28,6 @@ import com.globalmentor.java.Objects;
  */
 public final class ImmutableDimension2D extends Dimension2D {
 
-	private static final long serialVersionUID = 1L;
-
 	/** The width of the dimension in double precision. */
 	private final double width;
 

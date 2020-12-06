@@ -37,6 +37,8 @@ import static com.globalmentor.awt.Containers.*;
  */
 public class BasicGridBagLayout extends GridBagLayout {
 
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * The origin (i.e. the center cell position) both horizontally and vertically to use when impersonating a border layout.
 	 */
