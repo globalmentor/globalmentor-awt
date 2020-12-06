@@ -33,9 +33,9 @@ import java.util.*;
 public class Fonts {
 
 	/**
-	 * Map of font family names, keyed to either a Unicode block or a <code>character</code>.
+	 * Map of font family names, keyed to either a Unicode block or a {@link Character}.
 	 */
-	protected static final Map characterFontFamilyNameMap = new HashMap();
+	protected static final Map<Object, String> characterFontFamilyNameMap = new HashMap<>();
 
 	/** The sorted list of available font family names. */
 	private static String[] sortedAvailableFontFamilyNameArray = null;
@@ -58,7 +58,7 @@ public class Fonts {
 	private transient static FontKey searchFontKey = new FontKey(null, 0, 0);
 
 	/** A synchronized map of references to fonts that have been loaded. */
-	protected transient static Map fontReferenceMap = new HashMap();
+	protected transient static Map<FontKey, Reference<Font>> fontReferenceMap = new HashMap<>();
 
 	/** This class cannot be publicly instantiated. */
 	private Fonts() {
@@ -74,10 +74,10 @@ public class Fonts {
 	 */
 	public static Font getFont(final String family, final int style, final int size) {
 		searchFontKey.setValue(family, style, size); //set the values of the font key for searching
-		final Reference fontReference = (Reference)fontReferenceMap.get(searchFontKey); //see if this font is already in the map
+		final Reference<Font> fontReference = fontReferenceMap.get(searchFontKey); //see if this font is already in the map
 		Font font = null; //we'll assign a font to this variable; assume at first that we don't have a font
 		if(fontReference != null) { //if we had the font at one time in the cache
-			font = (Font)fontReference.get(); //see if the font is still there
+			font = fontReference.get(); //see if the font is still there
 			if(font == null) { //if the memory has been reclaimed
 				fontReferenceMap.remove(searchFontKey); //remove the key from the map, since it doesn't contain a reference to a font anymore
 			}
@@ -85,7 +85,7 @@ public class Fonts {
 		if(font == null) { //if we didn't have a font cached, or if we did but its memory has been reclaimed
 			font = new Font(family, style, size); //create a new font with the desired characteristics
 			final FontKey fontKey = new FontKey(family, style, size); //create a new font key to represent the font
-			fontReferenceMap.put(fontKey, new SoftReference(font)); //store a soft reference to the font in the map, so that the font can be reclaimed, if necessary
+			fontReferenceMap.put(fontKey, new SoftReference<Font>(font)); //store a soft reference to the font in the map, so that the font can be reclaimed, if necessary
 		}
 		return font; //return the font we found in the map or created
 	}
@@ -129,20 +129,21 @@ public class Fonts {
 	 * @return The new font, or <code>null</code> if a font could not be found that matched this character.
 	 */
 	public static Font getFont(final char c, final int style, final int size) {
-		if(c < 32) //TODO testing; used to get around the initial '\n' stored in a paragraph; fix
+		if(c < 32) { //TODO testing; used to get around the initial '\n' stored in a paragraph; fix
 			return null;
+		}
 		//TODO del Log.trace("Looking for character "+Integer.toHexString(c));
-		final Character character = new Character(c); //create a character object to use as a key to lookup the character in the map
+		final Character character = Character.valueOf(c); //create a character object to use as a key to lookup the character in the map
 		//see if we know about a font family name for this character
-		final String characterFamilyName = (String)characterFontFamilyNameMap.get(character);
+		final String characterFamilyName = characterFontFamilyNameMap.get(character);
 		if(characterFamilyName != null) { //if we found a family name for this character
 		//TODO del Log.trace("found matching character in map");
 			final Font characterFont = getFont(characterFamilyName, style, size); //create the font for the character
-			if(characterFont.canDisplay(c)) //if the font can really display the character
+			if(characterFont.canDisplay(c)) { //if the font can really display the character
 				return characterFont; //return the font
-			else
-				//if the font can't display the character
+			} else { //if the font can't display the character
 				characterFontFamilyNameMap.remove(character); //remove the character key from the map; it was misleading
+			}
 		} else { //if we didn't find a family name, this might mean there's no font stored for this character, or we previously stored null, meaning there is no supporting font
 			if(characterFontFamilyNameMap.containsKey(character)) { //if we actually stored the null value keyed to this character
 				return null; //there's no use searching further---we've searched for this character before, and turned up nothing
@@ -152,15 +153,15 @@ public class Fonts {
 		final Character.UnicodeBlock unicodeBlock = Character.UnicodeBlock.of(c); //TODO user our own Unicode block implementation
 		//TODO del Log.trace("character in unicode block: "+unicodeBlock); //TODO del
 		//see if we know about a font family name for this block
-		final String blockFamilyName = (String)characterFontFamilyNameMap.get(unicodeBlock);
+		final String blockFamilyName = characterFontFamilyNameMap.get(unicodeBlock);
 		if(blockFamilyName != null) { //if we found a family name for this character
 		//TODO del Log.trace("found matching Unicode block");
 			final Font blockFont = getFont(blockFamilyName, style, size); //create the font for the Unicode block
-			if(blockFont.canDisplay(c)) //if the font can really display the character
+			if(blockFont.canDisplay(c)) { //if the font can really display the character
 				return blockFont; //return the font
-			else
-				//if the font can't display the character
+			} else { //if the font can't display the character
 				characterFontFamilyNameMap.remove(unicodeBlock); //remove the unicode block key from the map; it was misleading
+			}
 		}
 		Font chosenFont = null; //if we can't find the font in the map, we'll try to find one
 		//try suggestions
@@ -171,13 +172,13 @@ public class Fonts {
 		//TODO fix for Arabic					return getFont(childView, "Lucinda Sans Regular", font.getStyle(), font.getSize()); //use the font we know can display this character correctly TODO fix, use constants TODO what about the font.getSize2D()?
 		//TODO add Batang and others to the last-resort fonts
 		//TODO should these be "Lucida Sans"?
-		if(unicodeBlock.equals(Character.UnicodeBlock.ARROWS)) //if this is an arrow
+		if(unicodeBlock.equals(Character.UnicodeBlock.ARROWS)) { //if this is an arrow
 			possibleFontFamilyNames = new String[] { "Lucida Sans Regular", "Berling Antiqua", "Batang" }; //show which font family names we want to try TODO use a pre-created static version
-		else if(unicodeBlock.equals(Character.UnicodeBlock.LETTERLIKE_SYMBOLS)) //if this is a letter-like symbol
+		} else if(unicodeBlock.equals(Character.UnicodeBlock.LETTERLIKE_SYMBOLS)) { //if this is a letter-like symbol
 			possibleFontFamilyNames = new String[] { "Lucida Sans Regular", "Berling Antiqua" }; //show which font family names we want to try TODO use a pre-created static version
-		else if(unicodeBlock.equals(Character.UnicodeBlock.GENERAL_PUNCTUATION)) //if this is general punctuation
+		} else if(unicodeBlock.equals(Character.UnicodeBlock.GENERAL_PUNCTUATION)) { //if this is general punctuation
 			possibleFontFamilyNames = new String[] { "Berling Antiqua", "Lucida Sans Regular" }; //show which font family names we want to try TODO use a pre-created static version
-		else { //if we have no suggestions
+		} else { //if we have no suggestions
 			//Log.trace("Font cannot support character: " + Integer.toHexString(c) + ", but we have no suggestions");
 
 			//TODO add lookup for "MS Hei" to the appropriate Unicode blocks, such as for 0x4F60

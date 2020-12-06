@@ -67,9 +67,9 @@ public class BasicGridBagLayout extends GridBagLayout {
 	 */
 	protected int getMaxGrid(final int axis) throws IllegalArgumentException { //TODO probably replace this with getGridBounds() 
 		int max = -1; //start out not finding any coordinate
-		final Iterator constraintsIterator = comptable.values().iterator(); //get an iterator to all the constraints
+		final Iterator<GridBagConstraints> constraintsIterator = comptable.values().iterator(); //get an iterator to all the constraints
 		while(constraintsIterator.hasNext()) { //while there are more constraints
-			final GridBagConstraints constraints = (GridBagConstraints)constraintsIterator.next(); //get the next layout constraints
+			final GridBagConstraints constraints = constraintsIterator.next(); //get the next layout constraints
 			switch(axis) { //see which axis we're looking at
 				case X_AXIS:
 					max = Math.max(max, constraints.gridx); //see if we need to update the largest x coordinate
@@ -90,9 +90,9 @@ public class BasicGridBagLayout extends GridBagLayout {
 	 */
 	public Rectangle getGridBounds() {
 		int minX = 0, minY = 0, maxX = 0, maxY = 0; //the minimum and maximum coordinates
-		final Iterator constraintsIterator = comptable.values().iterator(); //get an iterator to all the constraints
+		final Iterator<GridBagConstraints> constraintsIterator = comptable.values().iterator(); //get an iterator to all the constraints
 		while(constraintsIterator.hasNext()) { //while there are more constraints
-			final GridBagConstraints constraints = (GridBagConstraints)constraintsIterator.next(); //get the next layout constraints
+			final GridBagConstraints constraints = constraintsIterator.next(); //get the next layout constraints
 			minX = Math.min(minX, constraints.gridx); //see if we need to update the smallest x coordinate
 			maxX = Math.max(maxX, constraints.gridx); //see if we need to update the largest x coordinate
 			minY = Math.min(minY, constraints.gridy); //see if we need to update the smallest y coordinate
@@ -238,9 +238,9 @@ public class BasicGridBagLayout extends GridBagLayout {
 		int index = 0; //start looking at the first index
 		do { //this is a slow way to look for the next index, but in border layouts there shouldn't be very many child components and this takes up less memory than a once-through array-based method
 			boolean isIndexUsed = false; //we'll see if this index has been used
-			final Iterator constraintsIterator = comptable.values().iterator(); //get an iterator to all the constraints
+			final Iterator<GridBagConstraints> constraintsIterator = comptable.values().iterator(); //get an iterator to all the constraints
 			while(constraintsIterator.hasNext()) { //while there are more constraints
-				final GridBagConstraints constraints = (GridBagConstraints)constraintsIterator.next(); //get the next layout constraints
+				final GridBagConstraints constraints = constraintsIterator.next(); //get the next layout constraints
 				final int position = axis == X_AXIS ? constraints.gridx : constraints.gridy; //get the value we're interested in
 				final int usedIndex = direction < 0 ? position : MAXGRIDSIZE - 1 - position; //if we're going down, use the index; going up, subtract the position from the size of the grid 
 				if(usedIndex == index) { //if we've used this index
