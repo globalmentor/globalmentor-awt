@@ -16,9 +16,9 @@
 
 package com.globalmentor.awt.geom;
 
-import java.awt.geom.Dimension2D;
+import static java.util.Objects.*;
 
-import com.globalmentor.java.Objects;
+import java.awt.geom.Dimension2D;
 
 /**
  * Immutable class for storing a 2D dimension as a read-only value.
@@ -90,7 +90,7 @@ public final class ImmutableDimension2D extends Dimension2D {
 	/** {@inheritDoc} */
 	@Override
 	public int hashCode() {
-		return Objects.getDoubleHashCode(width, height);
+		return hash(width, height);
 	}
 
 	/**
