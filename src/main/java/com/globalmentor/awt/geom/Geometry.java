@@ -30,15 +30,13 @@ public class Geometry {
 	}
 
 	/**
-	 * Constrains the given inner dimension within the given outer dimension by scaling the inner dimension so that no part lies outside the outer dimension.
-	 * <p>
-	 * This implementation returns an immutable dimension.
-	 * </p>
+	 * Returns a the result of scaling the inner dimension so that no part lies outside the outer dimension. This method does not modify the original dimension.
+	 * @implSpec This implementation may return an immutable dimension.
 	 * @param dimension The inner dimension to be constrained.
 	 * @param constrainingDimension The outer constraining dimension.
 	 * @return A dimension representing the constrained dimension.
 	 */
-	public static Dimension2D constrain(final Dimension2D dimension, final Dimension2D constrainingDimension) {
+	public static Dimension2D constrainedBy(final Dimension2D dimension, final Dimension2D constrainingDimension) {
 		final double width = dimension.getWidth();
 		final double height = dimension.getHeight();
 		final double constrainingWidth = constrainingDimension.getWidth();
@@ -46,7 +44,7 @@ public class Geometry {
 		if(width <= constrainingWidth && height <= constrainingHeight) { //if nothing needs to be constrained
 			return dimension; //return the dimension unchanged
 		}
-		final double relation = (double)width / height; //determine the relationship of the sides
+		final double relation = width / height; //determine the relationship of the sides
 		double newWidth;
 		double newHeight = constrainingWidth / relation; //get the matching height for a constrained width
 		if(newHeight <= constrainingHeight) { //if the height has been constrained
@@ -55,7 +53,7 @@ public class Geometry {
 			newWidth = constrainingHeight * relation; //get the matching width for a constrained height
 			newHeight = constrainingHeight; //constrain the height to the edges
 		}
-		return new ImmutableDimension2D(newWidth, newHeight); //return the new constrained dimensions
+		return ImmutableDimension2D.of(newWidth, newHeight); //return the new constrained dimensions
 	}
 
 	/**

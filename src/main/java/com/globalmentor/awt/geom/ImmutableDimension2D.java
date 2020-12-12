@@ -21,12 +21,14 @@ import static java.util.Objects.*;
 import java.awt.geom.Dimension2D;
 
 /**
- * Immutable class for storing a 2D dimension as a read-only value.
- * 
+ * Immutable value class for storing a 2D dimension as a read-only value.
+ * @implSpec This class performs {@link #equals(Object)} comparison based upon <code>==</code> equality of <code>double</code> values.
  * @author Garret Wilson
- * 
  */
 public final class ImmutableDimension2D extends Dimension2D {
+
+	/** An immutable, shared instance of coordinates for the origin <code>(0.0, 0.0)</code>. */
+	public static ImmutableDimension2D ORIGIN = new ImmutableDimension2D(0.0, 0.0);
 
 	/** The width of the dimension in double precision. */
 	private final double width;
@@ -34,29 +36,40 @@ public final class ImmutableDimension2D extends Dimension2D {
 	/** The height of the dimension in double precision. */
 	private final double height;
 
-	/** {@inheritDoc} */
+	@Override
 	public double getWidth() {
 		return width;
 	}
 
-	/** {@inheritDoc} */
+	@Override
 	public double getHeight() {
 		return height;
 	}
 
 	/**
-	 * Creates a dimension with a with of zero and a height of zero.
+	 * Returns an immutable dimension initialized with the specified width and specified height.
+	 * @param width The specified width.
+	 * @param height The specified height.
+	 * @return An immutable dimension with the given coordinates.
 	 */
-	public ImmutableDimension2D() {
-		this(0, 0);
+	public static ImmutableDimension2D of(final double width, final double height) {
+		if(width == 0 && height == 0) {
+			return ORIGIN;
+		}
+		return new ImmutableDimension2D(width, height);
 	}
 
 	/**
-	 * Creates a dimension with the same width and height as the given dimension.
+	 * Returns an immutable dimension with the same coordinates of the given dimension.
+	 * @implSpec If the given dimension is already immutable, it will be returned. Otherwise this implementation delegates to {@link #of(double, double)}.
 	 * @param dimension The dimension the values of which will be copied.
+	 * @return An immutable dimension with the given of the given dimension.
 	 */
-	public ImmutableDimension2D(final Dimension2D dimension) {
-		this(dimension.getWidth(), dimension.getHeight());
+	public static ImmutableDimension2D of(final Dimension2D dimension) {
+		if(dimension instanceof ImmutableDimension2D) {
+			return (ImmutableDimension2D)dimension;
+		}
+		return of(dimension.getWidth(), dimension.getHeight());
 	}
 
 	/**
@@ -64,13 +77,14 @@ public final class ImmutableDimension2D extends Dimension2D {
 	 * @param width The specified width.
 	 * @param height The specified height.
 	 */
-	public ImmutableDimension2D(final double width, final double height) {
+	private ImmutableDimension2D(final double width, final double height) {
 		this.width = width;
 		this.height = height;
 	}
 
 	/**
-	 * {@inheritDoc} This version throws an exception, as this class is immutable.
+	 * {@inheritDoc}
+	 * @implSpec This version throws an exception, as this class is immutable.
 	 * @throws UnsupportedOperationException to indicate that this value class is immutable.
 	 */
 	@Override
@@ -79,29 +93,39 @@ public final class ImmutableDimension2D extends Dimension2D {
 	}
 
 	/**
-	 * {@inheritDoc} This version throws an exception, as this class is immutable.
+	 * {@inheritDoc}
+	 * @implSpec This version throws an exception, as this class is immutable.
 	 * @throws UnsupportedOperationException to indicate that this value class is immutable.
 	 */
 	@Override
-	public void setSize(Dimension2D d) {
+	public void setSize(final Dimension2D dimension2d) {
 		throw new UnsupportedOperationException("Class " + getClass() + " is immutable.");
 	}
 
-	/** {@inheritDoc} */
 	@Override
 	public int hashCode() {
 		return hash(width, height);
 	}
 
 	/**
-	 * Determines if this object is equal to another object. The two objects are considered equal if they are both instances of {@link Dimension2D} with the same
-	 * width and height.
+	 * {@inheritDoc}
+	 * @implSpec This implementation returns <code>true</code> if the other object is an instance of {@link Dimension2D} with the same 2D width and height
+	 *           compared using <code>==</code> for equality. Thus negative and positive zero are considered the same.
+	 * @implNote In general <code>double</code> values should be compared in a lenient manner to avoid rounding variations. For now this implementation uses
+	 *           <code>==</code> for comparisons, but the possibility of using lenient comparisons may be considered in the future
+	 * @see Dimension2D#getWidth()
+	 * @see Dimension2D#getHeight()
 	 */
+	@Override
 	public boolean equals(final Object object) {
+		if(this == object) {
+			return true;
+		}
 		if(!(object instanceof Dimension2D)) {
 			return false;
 		}
 		final Dimension2D dimension2D = (Dimension2D)object;
 		return getWidth() == dimension2D.getWidth() && getHeight() == dimension2D.getHeight();
 	}
+
 }
