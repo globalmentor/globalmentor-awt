@@ -68,15 +68,21 @@ public class Geometry {
 			return dimension; //return the dimension unchanged
 		}
 		final double ratio = width / height; //determine the relationship of the sides
-		double newWidth;
-		double newHeight = maxWidth / ratio; //get the matching height for a constrained width
-		if(newHeight <= maxHeight) { //if the height has been constrained
-			newWidth = maxWidth; //constrain the width to the edges
-		} else { //if the height needs to be constrained
-			newWidth = maxHeight * ratio; //get the matching width for a constrained height
-			newHeight = maxHeight; //constrain the height to the edges
+		final double constrainingRatio = maxWidth / maxHeight;
+		final double constrainedWidth;
+		final double constrainedHeight;
+		if(constrainingRatio < ratio) { //width constrained
+			constrainedWidth = maxWidth;
+			constrainedHeight = constrainedWidth / ratio;
+		} else if(constrainingRatio > ratio) { //height constrained
+			constrainedHeight = maxHeight;
+			constrainedWidth = constrainedHeight * ratio;
+		} else { //same ratio
+			assert constrainingRatio == ratio;
+			constrainedWidth = maxWidth; //no need to do calculations --- use the constraining dimensions themselves
+			constrainedHeight = maxHeight;
 		}
-		return ImmutableDimension2D.of(newWidth, newHeight); //return the new constrained dimensions
+		return ImmutableDimension2D.of(constrainedWidth, constrainedHeight);
 	}
 
 	/**
