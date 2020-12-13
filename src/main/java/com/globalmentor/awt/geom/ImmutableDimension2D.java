@@ -20,6 +20,8 @@ import static java.util.Objects.*;
 
 import java.awt.geom.Dimension2D;
 
+import javax.annotation.*;
+
 /**
  * Immutable value class for storing a 2D dimension as a read-only value.
  * @implSpec This class performs {@link #equals(Object)} comparison based upon <code>==</code> equality of <code>double</code> values.
@@ -27,8 +29,8 @@ import java.awt.geom.Dimension2D;
  */
 public final class ImmutableDimension2D extends Dimension2D {
 
-	/** An immutable, shared instance of coordinates for the origin <code>(0.0, 0.0)</code>. */
-	public static ImmutableDimension2D ORIGIN = new ImmutableDimension2D(0.0, 0.0);
+	/** An immutable, shared instance of coordinates for no dimensions, with zero width and height. */
+	public static ImmutableDimension2D ZERO = new ImmutableDimension2D(0.0, 0.0);
 
 	/** The width of the dimension in double precision. */
 	private final double width;
@@ -53,8 +55,8 @@ public final class ImmutableDimension2D extends Dimension2D {
 	 * @return An immutable dimension with the given coordinates.
 	 */
 	public static ImmutableDimension2D of(final double width, final double height) {
-		if(width == 0 && height == 0) {
-			return ORIGIN;
+		if(width == 0.0 && height == 0.0) {
+			return ZERO;
 		}
 		return new ImmutableDimension2D(width, height);
 	}
@@ -133,6 +135,7 @@ public final class ImmutableDimension2D extends Dimension2D {
 	 * @implSpec This implementation delegates to {@link #constrainedBy(double, double)}
 	 * @param maxDimension The constraining dimension.
 	 * @return A dimension representing the constrained dimension.
+	 * @throws IllegalArgumentException if the constraining dimension has a negative width or height.
 	 */
 	public ImmutableDimension2D constrainedBy(final Dimension2D maxDimension) {
 		return constrainedBy(maxDimension.getWidth(), maxDimension.getHeight());
@@ -144,8 +147,9 @@ public final class ImmutableDimension2D extends Dimension2D {
 	 * @param maxWidth The outer constraining width.
 	 * @param maxHeight The outer constraining height.
 	 * @return A dimension representing the constrained dimension.
+	 * @throws IllegalArgumentException if the maximum width or height is negative.
 	 */
-	public ImmutableDimension2D constrainedBy(final double maxWidth, final double maxHeight) {
+	public ImmutableDimension2D constrainedBy(@Nonnegative final double maxWidth, @Nonnegative final double maxHeight) {
 		//Geometry.constrainedBy() should return an ImmutableDimension2D, but using ImmutableDimension2D.of()
 		//obviates the need of putting additional requirements in the API of Geometry.constrainedBy().
 		return ImmutableDimension2D.of(Geometry.constrainedBy(this, maxWidth, maxHeight));

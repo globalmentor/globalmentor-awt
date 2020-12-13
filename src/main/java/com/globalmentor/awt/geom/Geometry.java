@@ -16,8 +16,12 @@
 
 package com.globalmentor.awt.geom;
 
+import static com.globalmentor.java.Conditions.*;
+
 import java.awt.*;
 import java.awt.geom.Dimension2D;
+
+import javax.annotation.*;
 
 /**
  * Utilities that work with geometrical coordinates.
@@ -36,6 +40,7 @@ public class Geometry {
 	 * @param dimension The inner dimension to be constrained.
 	 * @param maxDimension The outer constraining dimension.
 	 * @return A dimension representing the constrained dimension.
+	 * @throws IllegalArgumentException if the constraining dimension has a negative width or height.
 	 */
 	public static Dimension2D constrainedBy(final Dimension2D dimension, final Dimension2D maxDimension) {
 		return constrainedBy(dimension, maxDimension.getWidth(), maxDimension.getHeight());
@@ -49,10 +54,16 @@ public class Geometry {
 	 * @param maxWidth The outer constraining width.
 	 * @param maxHeight The outer constraining height.
 	 * @return A dimension representing the constrained dimension.
+	 * @throws IllegalArgumentException if the maximum width or height is negative.
 	 */
-	public static Dimension2D constrainedBy(final Dimension2D dimension, final double maxWidth, final double maxHeight) {
+	public static Dimension2D constrainedBy(final Dimension2D dimension, @Nonnegative final double maxWidth, @Nonnegative final double maxHeight) {
 		final double width = dimension.getWidth();
+		checkArgument(width > 0.0, "Cannot constrain dimension by a negative width.");
 		final double height = dimension.getHeight();
+		checkArgument(height > 0.0, "Cannot constrain dimension by a negative height.");
+		if(maxWidth == 0.0 || maxHeight == 0.0) { //constraining to zero in either dimension results in a zero dimension
+			return ImmutableDimension2D.ZERO;
+		}
 		if(width <= maxWidth && height <= maxHeight) { //if nothing needs to be constrained
 			return dimension; //return the dimension unchanged
 		}
