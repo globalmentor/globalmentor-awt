@@ -128,4 +128,32 @@ public final class ImmutableDimension2D extends Dimension2D {
 		return getWidth() == dimension2D.getWidth() && getHeight() == dimension2D.getHeight();
 	}
 
+	/**
+	 * Returns a the result of scaling this dimension so that no part lies outside the given constraining dimension.
+	 * @implSpec This implementation delegates to {@link #constrainedBy(double, double)}
+	 * @param maxDimension The constraining dimension.
+	 * @return A dimension representing the constrained dimension.
+	 */
+	public ImmutableDimension2D constrainedBy(final Dimension2D maxDimension) {
+		return constrainedBy(maxDimension.getWidth(), maxDimension.getHeight());
+	}
+
+	/**
+	 * Returns a the result of scaling this dimension so that no part lies outside the constraining width and height.
+	 * @implSpec This implementation delegates to {@link Geometry#constrainedBy(Dimension2D, double, double)}.
+	 * @param maxWidth The outer constraining width.
+	 * @param maxHeight The outer constraining height.
+	 * @return A dimension representing the constrained dimension.
+	 */
+	public ImmutableDimension2D constrainedBy(final double maxWidth, final double maxHeight) {
+		//Geometry.constrainedBy() should return an ImmutableDimension2D, but using ImmutableDimension2D.of()
+		//obviates the need of putting additional requirements in the API of Geometry.constrainedBy().
+		return ImmutableDimension2D.of(Geometry.constrainedBy(this, maxWidth, maxHeight));
+	}
+
+	@Override
+	public String toString() {
+		return "{width:" + getWidth() + ",height:" + getHeight() + "}";
+	}
+
 }
