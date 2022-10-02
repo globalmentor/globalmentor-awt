@@ -4,17 +4,25 @@
 
 	<parent>
 		<groupId>com.globalmentor</groupId>
-		<artifactId>globalmentor-parent</artifactId>
-		<version>8.6.0</version>
+		<artifactId>globalmentor-base</artifactId>
+		<version>0.7.2</version>
 	</parent>
 
 	<artifactId>globalmentor-awt</artifactId>
-	<version>0.6.1-SNAPSHOT</version>
+	<version>0.6.1</version>
 
 	<name>GlobalMentor AWT</name>
 	<description>GlobalMentor Java AWT library.</description>
-	<url>http://www.globalmentor.com/software/</url>
+	<url>https://www.globalmentor.com/software/</url>
 	<inceptionYear>1996</inceptionYear>
+
+	<licenses>
+		<license>
+			<name>Apache-2.0</name>
+			<url>https://www.apache.org/licenses/LICENSE-2.0</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 
 	<scm>
 		<connection>scm:git:https://bitbucket.org/globalmentor/globalmentor-awt.git</connection>
