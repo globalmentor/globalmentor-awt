@@ -56,7 +56,7 @@ public class BasicGridBagLayout extends GridBagLayout {
 	 * @return The constraints associated with the component, or <code>null</code> if there are no constraints associated with the component.
 	 */
 	public GridBagConstraints getConstraints(final Component component) {
-		return (GridBagConstraints)comptable.get(component); //get any constraints associated with the component 
+		return comptable.get(component); //get any constraints associated with the component 
 	}
 
 	/**
